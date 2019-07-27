@@ -9,7 +9,14 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    case GET_BOOKINGS_SUCCESS:
+    case GET_BOOKINGS_SUCCESS: {
+      const { bookings } = action.payload;
+
+      return {
+        bookings
+      }
+    }
+
     case GET_BOOKINGS_FAILED:
     default:
       return state;
