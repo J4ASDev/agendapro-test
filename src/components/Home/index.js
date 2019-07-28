@@ -14,13 +14,13 @@ const HomeLayout = ({
   onDragEnd
 }) => (
   <DragDropContext onDragEnd={onDragEnd}>
-    <BookingsWrapper droppableId='reserved' bookings={reserved} />
-    <BookingsWrapper droppableId='confirmed' bookings={confirmed} />
-    <BookingsWrapper droppableId='attends' bookings={attends} />
-    <BookingsWrapper droppableId='canceled' bookings={canceled} />
-    <BookingsWrapper droppableId='notAttends' bookings={notAttends} />
-    <BookingsWrapper droppableId='standby' bookings={standby} />
-    <BookingsWrapper droppableId='pending' bookings={pending} />
+    <BookingsWrapper droppableId='reserved1' bookings={reserved} />
+    <BookingsWrapper droppableId='confirmed2' bookings={confirmed} />
+    <BookingsWrapper droppableId='attends3' bookings={attends} />
+    <BookingsWrapper droppableId='canceled5' bookings={canceled} />
+    <BookingsWrapper droppableId='notAttends6' bookings={notAttends} />
+    <BookingsWrapper droppableId='standby7' bookings={standby} />
+    <BookingsWrapper droppableId='pending8' bookings={pending} />
   </DragDropContext>
 );
 

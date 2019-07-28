@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
-        Allbookings: bookings,
+        allBookings: bookings,
         reserved,
         confirmed,
         attends,

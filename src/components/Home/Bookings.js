@@ -5,7 +5,7 @@ const BookingsWrapper = ({ droppableId, bookings }) => (
   <Droppable droppableId={droppableId}>
     { provided => (
       <div ref={provided.innerRef} className='bookings-wrapper'>
-        <p>{bookings.length}</p>
+        <p> {droppableId.slice(0, -1)} {bookings.length}</p>
         { bookings.map((item, index) => {
           const { client, start, end, price, status } = item;
           const { first_name, last_name, email } = client;
@@ -47,8 +47,8 @@ const BookingsWrapper = ({ droppableId, bookings }) => (
             </Draggable>
           )
         })}
-      {provided.placeholder}
-    </div>
+        {provided.placeholder}
+      </div>
     )}
   </Droppable>
 );

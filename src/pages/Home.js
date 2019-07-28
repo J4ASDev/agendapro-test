@@ -7,13 +7,13 @@ import HomeLayout from '../components/Home';
 
 class Home extends Component {
   idStatusLists = {
-    reserved: 'reserved',
-    confirmed: 'confirmed',
-    attends: 'attends',
-    canceled: 'canceled',
-    notAttends: 'notAttends',
-    standby: 'standby',
-    pending: 'pending'
+    reserved1: 'reserved',
+    confirmed2: 'confirmed',
+    attends3: 'attends',
+    canceled5: 'canceled',
+    notAttends6: 'notAttends',
+    standby7: 'standby',
+    pending8: 'pending'
   };
 
   getList = id => this.props[this.idStatusLists[id]];
