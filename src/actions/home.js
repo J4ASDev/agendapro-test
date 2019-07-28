@@ -6,6 +6,10 @@ import {
   MOVE_BOOKINGS_DND
 } from '../libs/actionsTypes';
 
+export const filterBookings = (bookings, status) => {
+  return bookings.filter(booking => booking.status === status);
+}
+
 export const getBookings = id => {
   return async dispatch => {
     try {
@@ -20,12 +24,28 @@ export const getBookings = id => {
       };
 
       const request = await fetch(`${API.AGENDAPRO}/clients/${id}/bookings`, options);
-
       const bookings = await request.json();
-      
+
+      const reserved = filterBookings(bookings, 'Reservado');
+      const confirmed = filterBookings(bookings, 'Confirmado');
+      const attends = filterBookings(bookings, 'Asiste');
+      const canceled = filterBookings(bookings, 'Cancelado');
+      const notAttends = filterBookings(bookings, 'No Asiste');
+      const standby = filterBookings(bookings, 'En Espera');
+      const pending = filterBookings(bookings, 'Pendiente');
+
       return dispatch({
         type: GET_BOOKINGS_SUCCESS,
-        payload: { bookings }
+        payload: {
+          bookings,
+          reserved,
+          confirmed,
+          attends,
+          canceled,
+          notAttends,
+          standby,
+          pending
+        }
       });
     } catch(err) {
       return dispatch({ type: GET_BOOKINGS_FAILED });

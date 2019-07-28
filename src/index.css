@@ -21,8 +21,9 @@ code {
 }
 
 .bookings-wrapper {
+  height: 525px;
+  overflow: auto;
   min-width: 300px;
-  min-height: 250px;
   background: #fefefe;
   border: 1px solid;
 }

@@ -7,9 +7,13 @@ import HomeLayout from '../components/Home';
 
 class Home extends Component {
   idStatusLists = {
-    droppable: 'bookings',
-    droppable2: 'selected',
-    droppable3: 'selected2',
+    reserved: 'reserved',
+    confirmed: 'confirmed',
+    attends: 'attends',
+    canceled: 'canceled',
+    notAttends: 'notAttends',
+    standby: 'standby',
+    pending: 'pending'
   };
 
   getList = id => this.props[this.idStatusLists[id]];
@@ -22,28 +26,33 @@ class Home extends Component {
     if (!destination) return;
 
     if (source.droppableId === destination.droppableId) {
-      const idList = source.droppableId;
-      const listBookings = this.getList(idList);
-      const sourceIndex = source.index;
-      const destIndex = destination.index;
-
-      reorderBookingsDnd(idList, listBookings, sourceIndex, destIndex);
-
+      reorderBookingsDnd(
+        source.droppableId,
+        this.getList(source.droppableId),
+        source.index,
+        destination.index
+      );
     } else {
-      const listBookingsSource = this.getList(source.droppableId);
-      const listBookingsDest = this.getList(destination.droppableId);
-
-      moveBookingsDnd(listBookingsSource, listBookingsDest, source, destination);
+      moveBookingsDnd(
+        this.getList(source.droppableId),
+        this.getList(destination.droppableId),
+        source,
+        destination
+      );
     }
   };
 
   render() {
-    const { bookings, selected, selected2 } = this.props;
+    const { reserved, confirmed, attends, canceled, notAttends, standby, pending } = this.props;
     return (
       <HomeLayout
-        selected={selected}
-        selected2={selected2}
-        bookings={bookings}
+        reserved={reserved}
+        confirmed={confirmed}
+        attends={attends}
+        canceled={canceled}
+        notAttends={notAttends}
+        standby={standby}
+        pending={pending}
         onDragEnd={this.onDragEnd}
       />
     )
@@ -55,13 +64,23 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  bookings: PropTypes.array
+  reserved: PropTypes.array,
+  confirmed: PropTypes.array,
+  attends: PropTypes.array,
+  canceled: PropTypes.array,
+  notAttends: PropTypes.array,
+  standby: PropTypes.array,
+  pending: PropTypes.array
 };
 
 const mapStateToProps = ({ home }) => ({
-  bookings: home.droppable,
-  selected: home.droppable2,
-  selected2: home.droppable3,
+  reserved: home.reserved,
+  confirmed: home.confirmed,
+  attends: home.attends,
+  canceled: home.canceled,
+  notAttends: home.notAttends,
+  standby: home.standby,
+  pending: home.pending
 });
 
 const mapDispatchToProps = dispatch => ({
