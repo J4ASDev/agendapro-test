@@ -1,32 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { DragDropContext } from 'react-beautiful-dnd';
+import BookingsWrapper from './Bookings';
 
-const styles = {
-  border: '1px solid black',
-  padding: '10px',
-  margin: '10px'
-}
-
-const HomeLayout = ({ bookings, handleBookingUpdate }) => (
-  <div>
-    { bookings.map(item => (
-        <div key={item.id} style={styles} >
-          <h3>Booking</h3>
-          <p>{item.client.first_name}</p>
-          <p>{item.client.last_name}</p>
-          <p>{item.client.email}</p>
-          <p>{item.start.slice(0, 10)}</p>
-          <p>{item.end.slice(0, 10)}</p>
-          <p>{item.price}</p>
-          <p>{item.status}</p>
-          <button onClick={handleBookingUpdate} >Cancel booking</button>
-        </div>
-    ))}
-  </div>
+const HomeLayout = ({ bookings, selected, selected2, onDragEnd }) => (
+  <DragDropContext onDragEnd={onDragEnd}>
+    <BookingsWrapper droppableId='droppable' bookings={bookings} />
+    <BookingsWrapper droppableId='droppable2' bookings={selected} />
+    <BookingsWrapper droppableId='droppable3' bookings={selected2} />
+  </DragDropContext>
 );
-
-HomeLayout.propTypes = {
-  bookings: PropTypes.array
-};
 
 export default HomeLayout;

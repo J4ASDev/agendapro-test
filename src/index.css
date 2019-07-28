@@ -11,3 +11,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+#app {
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  grid-gap: 10%;
+  gap: 4%;
+  justify-items: center;
+}
+
+.bookings-wrapper {
+  min-width: 300px;
+  min-height: 250px;
+  background: #fefefe;
+  border: 1px solid;
+}
+
+.bookings {
+  display: grid;
+  gap: 5px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+}
+
+.bookings div {
+  display: flex;
+  align-items: center;
+}
+
+.bookings span {
+  font-weight: bold;
+}
+
+.bookings p {
+  margin: 0 5px;
+}
