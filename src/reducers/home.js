@@ -2,7 +2,9 @@ import {
   GET_BOOKINGS_SUCCESS,
   GET_BOOKINGS_FAILED,
   REORDER_BOOKINGS_DND,
-  MOVE_BOOKINGS_DND
+  MOVE_BOOKINGS_DND_SUCCESS,
+  MOVE_BOOKINGS_DND_FAILED,
+  CANCEL_BOOKING_FAILED
 } from '../libs/actionsTypes';
 
 const initialState = {
@@ -52,7 +54,7 @@ export default (state = initialState, action) => {
       }
     }
 
-    case MOVE_BOOKINGS_DND: {
+    case MOVE_BOOKINGS_DND_SUCCESS: {
       const { idListSource, sourceBookings, idListDest, destBookings } = action.payload;
 
       return {
@@ -63,6 +65,8 @@ export default (state = initialState, action) => {
     }
 
     case GET_BOOKINGS_FAILED:
+    case MOVE_BOOKINGS_DND_FAILED:
+    case CANCEL_BOOKING_FAILED:
     default:
       return state;
   }

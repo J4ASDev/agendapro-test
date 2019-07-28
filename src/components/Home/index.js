@@ -7,28 +7,28 @@ const HomeLayout = ({
   reserved,
   confirmed,
   attends,
-  canceled,
   notAttends,
   standby,
   pending,
-  onDragEnd
+  onDragEnd,
+  onCancelBooking
 }) => (
   <DragDropContext onDragEnd={onDragEnd}>
-    <BookingsWrapper droppableId='reserved1' bookings={reserved} />
-    <BookingsWrapper droppableId='confirmed2' bookings={confirmed} />
-    <BookingsWrapper droppableId='attends3' bookings={attends} />
-    <BookingsWrapper droppableId='canceled5' bookings={canceled} />
-    <BookingsWrapper droppableId='notAttends6' bookings={notAttends} />
-    <BookingsWrapper droppableId='standby7' bookings={standby} />
-    <BookingsWrapper droppableId='pending8' bookings={pending} />
+    <BookingsWrapper droppableId='reserved1' bookings={reserved} onCancelBooking={onCancelBooking} />
+    <BookingsWrapper droppableId='confirmed2' bookings={confirmed} onCancelBooking={onCancelBooking} />
+    <BookingsWrapper droppableId='attends3' bookings={attends} onCancelBooking={onCancelBooking} />
+    <BookingsWrapper droppableId='notAttends6' bookings={notAttends} onCancelBooking={onCancelBooking} />
+    <BookingsWrapper droppableId='standby7' bookings={standby} onCancelBooking={onCancelBooking} />
+    <BookingsWrapper droppableId='pending8' bookings={pending} onCancelBooking={onCancelBooking} />
   </DragDropContext>
 );
 
 HomeLayout.propTypes = {
+  onCancelBooking: PropTypes.func,
+  onDragEnd: PropTypes.func,
   reserved: PropTypes.array,
   confirmed: PropTypes.array,
   attends: PropTypes.array,
-  canceled: PropTypes.array,
   notAttends: PropTypes.array,
   standby: PropTypes.array,
   pending: PropTypes.array

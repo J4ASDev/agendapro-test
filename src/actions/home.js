@@ -3,8 +3,9 @@ import {
   GET_BOOKINGS_SUCCESS,
   GET_BOOKINGS_FAILED,
   REORDER_BOOKINGS_DND,
-  MOVE_BOOKINGS_DND,
-  MOVE_BOOKINGS_DND_FAILED
+  MOVE_BOOKINGS_DND_SUCCESS,
+  MOVE_BOOKINGS_DND_FAILED,
+  CANCEL_BOOKING_FAILED
 } from '../libs/actionsTypes';
 
 const options = typeMethod => {
@@ -13,7 +14,9 @@ const options = typeMethod => {
 
   return {
     method: typeMethod,
-    headers: { 'Authorization': `Basic ${btoa(`${username}:${password}`)}` }
+    headers: {
+      'Authorization': `Basic ${btoa(`${username}:${password}`)}`
+    }
   };
 }
 
@@ -54,6 +57,27 @@ export const getBookings = id => {
   }
 };
 
+export const cancelBooking = (idBooking, bookingsList, idList) => {
+  return async dispatch => {
+    try {
+      await fetch(`${API.AGENDAPRO}/bookings/${idBooking}?status_id=5`, options('DELETE'));
+      
+      const idListClone = idList.slice(0, -1);
+      const bookings = bookingsList.filter(booking => booking.id !== idBooking);
+
+      return dispatch({
+        type: REORDER_BOOKINGS_DND,
+        payload: {
+          bookings,
+          idList: idListClone
+        }
+      });
+    } catch(err) {
+      return dispatch({ type: CANCEL_BOOKING_FAILED });
+    }
+  }
+}
+
 export const reorderBookingsDnd = (idList, listBookings, startIndex, endIndex) => {
   return dispatch => {
     const idListClone = idList.slice(0, -1);
@@ -86,7 +110,7 @@ export const moveBookingsDnd = (source, destination, droppableSource, droppableD
       destBookings.splice(droppableDest.index, 0, booking);
 
       return dispatch({
-        type: MOVE_BOOKINGS_DND,
+        type: MOVE_BOOKINGS_DND_SUCCESS,
         payload: { idListSource, sourceBookings, idListDest, destBookings }
       });
 

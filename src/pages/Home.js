@@ -10,7 +10,6 @@ class Home extends Component {
     reserved1: 'reserved',
     confirmed2: 'confirmed',
     attends3: 'attends',
-    canceled5: 'canceled',
     notAttends6: 'notAttends',
     standby7: 'standby',
     pending8: 'pending'
@@ -42,17 +41,21 @@ class Home extends Component {
     }
   };
 
+  onCancelBooking = (id, bookings, idList) => {
+    this.props.actions.cancelBooking(id, bookings, idList);
+  }
+
   render() {
-    const { reserved, confirmed, attends, canceled, notAttends, standby, pending } = this.props;
+    const { reserved, confirmed, attends, notAttends, standby, pending } = this.props;
     return (
       <HomeLayout
         reserved={reserved}
         confirmed={confirmed}
         attends={attends}
-        canceled={canceled}
         notAttends={notAttends}
         standby={standby}
         pending={pending}
+        onCancelBooking={this.onCancelBooking}
         onDragEnd={this.onDragEnd}
       />
     )
@@ -67,7 +70,6 @@ Home.propTypes = {
   reserved: PropTypes.array,
   confirmed: PropTypes.array,
   attends: PropTypes.array,
-  canceled: PropTypes.array,
   notAttends: PropTypes.array,
   standby: PropTypes.array,
   pending: PropTypes.array
@@ -77,7 +79,6 @@ const mapStateToProps = ({ home }) => ({
   reserved: home.reserved,
   confirmed: home.confirmed,
   attends: home.attends,
-  canceled: home.canceled,
   notAttends: home.notAttends,
   standby: home.standby,
   pending: home.pending

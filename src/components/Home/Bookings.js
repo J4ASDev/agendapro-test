@@ -1,17 +1,17 @@
 import React from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-const BookingsWrapper = ({ droppableId, bookings }) => (
+const BookingsWrapper = ({ droppableId, bookings, onCancelBooking }) => (
   <Droppable droppableId={droppableId}>
     { provided => (
       <div ref={provided.innerRef} className='bookings-wrapper'>
         <p> {droppableId.slice(0, -1)} {bookings.length}</p>
         { bookings.map((item, index) => {
-          const { client, start, end, price, status } = item;
+          const { client, start, end, price, status, id } = item;
           const { first_name, last_name, email } = client;
 
           return (
-            <Draggable key={item.id} draggableId={item.id} index={index}>
+            <Draggable key={id} draggableId={id} index={index}>
               { provided => (
                 <div
                   ref={provided.innerRef}
@@ -19,7 +19,6 @@ const BookingsWrapper = ({ droppableId, bookings }) => (
                   {...provided.dragHandleProps}
                   className='bookings'
                 >
-                  <div><span>Id:</span><p>{item.id}</p></div>
 
                   <div> 
                     <span>Name:</span> <p>{first_name}</p>
@@ -42,6 +41,9 @@ const BookingsWrapper = ({ droppableId, bookings }) => (
                   <div>
                     <span>Status:</span> <p>{status}</p>
                   </div>
+                  <button onClick={() => onCancelBooking(id, bookings, droppableId)}>
+                    Cancel booking
+                  </button>
                 </div>
               )}
             </Draggable>
