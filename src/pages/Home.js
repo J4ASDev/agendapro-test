@@ -20,24 +20,33 @@ class Home extends Component {
   onDragEnd = result => {
     const { source, destination } = result;
     const { reorderBookingsDnd, moveBookingsDnd } = this.props.actions;
+    const sourceDropId = source.droppableId;
+    const destDropId = destination.droppableId;
 
     // dropped outside the list
     if (!destination) return;
 
-    if (source.droppableId === destination.droppableId) {
+    if (sourceDropId === destDropId) {
       reorderBookingsDnd(
-        source.droppableId,
-        this.getList(source.droppableId),
+        sourceDropId,
+        this.getList(sourceDropId),
         source.index,
         destination.index
       );
     } else {
-      moveBookingsDnd(
-        this.getList(source.droppableId),
-        this.getList(destination.droppableId),
-        source,
-        destination
-      );
+      const booking = this.getList(sourceDropId).find(booking => booking.id === result.draggableId);
+      const bookingDate = new Date(booking.start.slice(0, 10));
+      const givenDate = new Date('2019-08-09')
+
+      if (bookingDate > givenDate) {
+        moveBookingsDnd(
+          this.getList(sourceDropId),
+          this.getList(destDropId),
+          source,
+          destination
+        );
+      }
+      
     }
   };
 
