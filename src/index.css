@@ -12,7 +12,22 @@ code {
     monospace;
 }
 
-#app {
+input[type=date]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+.wrapper {
+  display: grid;
+  gap: 25px;
+}
+
+#form-filter-date {
+  display: grid;
+  grid-template-columns: repeat(2, 150px) 100px;
+}
+
+.wrapper-bookings {
   display: grid;
   grid-template-columns: repeat(3, 30%);
   grid-gap: 10%;
@@ -23,7 +38,7 @@ code {
 .bookings-wrapper {
   height: 525px;
   overflow: auto;
-  min-width: 300px;
+  min-width: 335px;
   background: #fefefe;
   border: 1px solid;
 }

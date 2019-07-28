@@ -24,10 +24,18 @@ const filterBookings = (bookings, status) => {
   return bookings.filter(booking => booking.status_id === status);
 }
 
-export const getBookings = id => {
+export const getBookings = (id, rangeFrom, rangeTo) => {
   return async dispatch => {
     try {
-      const request = await fetch(`${API.AGENDAPRO}/clients/${id}/bookings`, options('GET'));
+      let API_URL
+
+      if(rangeFrom && rangeTo) {
+        API_URL = `${API.AGENDAPRO}/clients/${id}/bookings?range_from=${rangeFrom}&range_to=${rangeTo}`;
+      } else {
+        API_URL = `${API.AGENDAPRO}/clients/${id}/bookings`;
+      }
+
+      const request = await fetch(API_URL, options('GET'));
       const bookings = await request.json();
 
       const reserved = filterBookings(bookings, 1);

@@ -54,6 +54,18 @@ class Home extends Component {
     this.props.actions.cancelBooking(id, bookings, idList);
   }
 
+  onFilterDateByRange = event => {
+    event.preventDefault();
+
+    const form = document.getElementById('form-filter-date');
+    const data = new FormData(form);
+
+    const rangeFrom = data.get('range-from');
+    const rangeTo = data.get('range-to');
+
+    if (rangeFrom && rangeTo) this.props.actions.getBookings(69197, rangeFrom, rangeTo);
+  }
+
   render() {
     const { reserved, confirmed, attends, notAttends, standby, pending } = this.props;
     return (
@@ -64,6 +76,7 @@ class Home extends Component {
         notAttends={notAttends}
         standby={standby}
         pending={pending}
+        onFilterDateByRange={this.onFilterDateByRange}
         onCancelBooking={this.onCancelBooking}
         onDragEnd={this.onDragEnd}
       />

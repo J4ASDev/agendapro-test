@@ -7,8 +7,7 @@ const BookingsWrapper = ({ droppableId, bookings, onCancelBooking }) => (
       <div ref={provided.innerRef} className='bookings-wrapper'>
         <p> {droppableId.slice(0, -1)} {bookings.length}</p>
         { bookings.map((item, index) => {
-          const { client, start, end, price, status, id } = item;
-          const { first_name, last_name, email } = client;
+          const { client: { first_name, email }, start, end, price, id } = item;
 
           return (
             <Draggable key={id} draggableId={id} index={index}>
@@ -19,12 +18,8 @@ const BookingsWrapper = ({ droppableId, bookings, onCancelBooking }) => (
                   {...provided.dragHandleProps}
                   className='bookings'
                 >
-
                   <div> 
                     <span>Name:</span> <p>{first_name}</p>
-                  </div>
-                  <div>
-                    <span>Last name:</span> <p>{last_name}</p>
                   </div>
                   <div>
                     <span>Email:</span> <p>{email}</p>
@@ -37,9 +32,6 @@ const BookingsWrapper = ({ droppableId, bookings, onCancelBooking }) => (
                   </div>
                   <div>
                     <span>Price:</span> <p>{price}</p>
-                  </div>
-                  <div>
-                    <span>Status:</span> <p>{status}</p>
                   </div>
                   <button onClick={() => onCancelBooking(id, bookings, droppableId)}>
                     Cancel booking
