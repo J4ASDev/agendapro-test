@@ -18,16 +18,16 @@ const options = typeMethod => {
       'Authorization': `Basic ${btoa(`${username}:${password}`)}`
     }
   };
-}
+};
 
 const filterBookings = (bookings, status) => {
   return bookings.filter(booking => booking.status_id === status);
-}
+};
 
 export const getBookings = (id, rangeFrom, rangeTo) => {
   return async dispatch => {
     try {
-      let API_URL
+      let API_URL;
 
       if(rangeFrom && rangeTo) {
         API_URL = `${API.AGENDAPRO}/clients/${id}/bookings?range_from=${rangeFrom}&range_to=${rangeTo}`;
@@ -62,7 +62,7 @@ export const getBookings = (id, rangeFrom, rangeTo) => {
     } catch(err) {
       return dispatch({ type: GET_BOOKINGS_FAILED });
     }
-  }
+  };
 };
 
 export const cancelBooking = (idBooking, bookingsList, idList) => {
@@ -83,8 +83,8 @@ export const cancelBooking = (idBooking, bookingsList, idList) => {
     } catch(err) {
       return dispatch({ type: CANCEL_BOOKING_FAILED });
     }
-  }
-}
+  };
+};
 
 export const reorderBookingsDnd = (idList, listBookings, startIndex, endIndex) => {
   return dispatch => {
@@ -97,7 +97,7 @@ export const reorderBookingsDnd = (idList, listBookings, startIndex, endIndex) =
       type: REORDER_BOOKINGS_DND,
       payload: { bookings, idList: idListClone }
     });
-  }
+  };
 };
 
 export const moveBookingsDnd = (source, destination, droppableSource, droppableDest) => {
@@ -111,7 +111,6 @@ export const moveBookingsDnd = (source, destination, droppableSource, droppableD
       const [removed] = sourceBookings.splice(droppableSource.index, 1);
       const idBooking = removed.id;
       const newStatus = droppableDest.droppableId.slice(-1);
-
       const request = await fetch(`${API.AGENDAPRO}/bookings/${idBooking}?status_id=${newStatus}`, options('PUT'));
       const booking = await request.json();
     
@@ -127,5 +126,5 @@ export const moveBookingsDnd = (source, destination, droppableSource, droppableD
         type: MOVE_BOOKINGS_DND_FAILED,
       });
     }
-  }
+  };
 };

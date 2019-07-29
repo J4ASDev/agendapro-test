@@ -17,11 +17,12 @@ class Home extends Component {
 
   getList = id => this.props[this.idStatusLists[id]];
 
-  onDragEnd = result => {
-    const { source, destination } = result;
+  onDragEnd = ({ source, destination, draggableId: dragBookingId }) => {
     const { reorderBookingsDnd, moveBookingsDnd } = this.props.actions;
     const sourceDropId = source.droppableId;
     const destDropId = destination.droppableId;
+    const sourceDropList = this.getList(sourceDropId);
+    const destDropList = this.getList(destDropId);
 
     // dropped outside the list
     if (!destination) return;
@@ -29,24 +30,20 @@ class Home extends Component {
     if (sourceDropId === destDropId) {
       reorderBookingsDnd(
         sourceDropId,
-        this.getList(sourceDropId),
+        sourceDropList,
         source.index,
         destination.index
       );
     } else {
-      const booking = this.getList(sourceDropId).find(booking => booking.id === result.draggableId);
+      const booking = sourceDropList.find(booking => booking.id === dragBookingId);
       const bookingDate = new Date(booking.start.slice(0, 10));
-      const givenDate = new Date('2019-08-09')
+      const givenDate = new Date('2019-07-09');
 
       if (bookingDate > givenDate) {
-        moveBookingsDnd(
-          this.getList(sourceDropId),
-          this.getList(destDropId),
-          source,
-          destination
-        );
+        moveBookingsDnd( sourceDropList, destDropList, source, destination );
+      } else {
+        console.log('Given date is not greater than the current date');
       }
-      
     }
   };
 
@@ -57,13 +54,16 @@ class Home extends Component {
   onFilterDateByRange = event => {
     event.preventDefault();
 
+    const { getBookings } = this.props.actions;
+
     const form = document.getElementById('form-filter-date');
     const data = new FormData(form);
-
     const rangeFrom = data.get('range-from');
     const rangeTo = data.get('range-to');
 
-    if (rangeFrom && rangeTo) this.props.actions.getBookings(69197, rangeFrom, rangeTo);
+    if (rangeFrom && rangeTo) return getBookings(69205, rangeFrom, rangeTo);
+
+    return getBookings(69205);
   }
 
   render() {
@@ -80,11 +80,11 @@ class Home extends Component {
         onCancelBooking={this.onCancelBooking}
         onDragEnd={this.onDragEnd}
       />
-    )
+    );
   }
 
   componentDidMount() {
-    this.props.actions.getBookings(69197);
+    this.props.actions.getBookings(69205);
   }
 }
 
@@ -94,7 +94,12 @@ Home.propTypes = {
   attends: PropTypes.array,
   notAttends: PropTypes.array,
   standby: PropTypes.array,
-  pending: PropTypes.array
+  pending: PropTypes.array,
+  actions: PropTypes.object,
+  getBookings: PropTypes.func,
+  cancelBooking: PropTypes.func,
+  reorderBookingsDnd: PropTypes.func,
+  moveBookingsDnd: PropTypes.func
 };
 
 const mapStateToProps = ({ home }) => ({

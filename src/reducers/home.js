@@ -16,7 +16,7 @@ const initialState = {
   notAttends: [],
   standby: [],
   pending: []
-}
+};
 
 export default (state = initialState, action) => {
   switch(action.type) {
@@ -51,7 +51,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         [idList]: bookings
-      }
+      };
     }
 
     case MOVE_BOOKINGS_DND_SUCCESS: {
@@ -70,4 +70,4 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
