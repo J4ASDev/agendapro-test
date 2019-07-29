@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#Home renders without crashing 1`] = `
+"<div className=\\"wrapper\\">
+  <div>
+    <h1>
+      AgendaPro Test - Bookings - Jonathan Araujo
+    </h1>
+    <form id=\\"form-filter-date\\" onSubmit={[Function: onFilterDateByRange]}>
+      <label>
+         From: 
+        <input type=\\"date\\" name=\\"range-from\\" />
+         
+      </label>
+      <label>
+         To: 
+        <input type=\\"date\\" name=\\"range-to\\" />
+         
+      </label>
+      <button>
+        Filter
+      </button>
+    </form>
+  </div>
+  <div className=\\"wrapper-bookings\\">
+    <DragDropContext onDragEnd={[Function: onDragEnd]}>
+      <BookingsWrapper droppableId=\\"reserved1\\" bookings={{...}} onCancelBooking={[Function: onCancelBooking]} />
+      <BookingsWrapper droppableId=\\"confirmed2\\" bookings={{...}} onCancelBooking={[Function: onCancelBooking]} />
+      <BookingsWrapper droppableId=\\"attends3\\" bookings={{...}} onCancelBooking={[Function: onCancelBooking]} />
+      <BookingsWrapper droppableId=\\"notAttends6\\" bookings={{...}} onCancelBooking={[Function: onCancelBooking]} />
+      <BookingsWrapper droppableId=\\"standby7\\" bookings={{...}} onCancelBooking={[Function: onCancelBooking]} />
+      <BookingsWrapper droppableId=\\"pending8\\" bookings={{...}} onCancelBooking={[Function: onCancelBooking]} />
+    </DragDropContext>
+  </div>
+</div>"
+`;

@@ -37,9 +37,9 @@ class Home extends Component {
     } else {
       const booking = sourceDropList.find(booking => booking.id === dragBookingId);
       const bookingDate = new Date(booking.start.slice(0, 10));
-      const givenDate = new Date('2019-07-09');
+      const currentDate = new Date();
 
-      if (bookingDate > givenDate) {
+      if (bookingDate >= currentDate) {
         moveBookingsDnd( sourceDropList, destDropList, source, destination );
       } else {
         console.log('Given date is not greater than the current date');
