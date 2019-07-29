@@ -6,8 +6,10 @@ const BookingsWrapper = ({ droppableId, bookings, onCancelBooking }) => (
   <Droppable droppableId={droppableId}>
     { provided => (
       <article>
-        <h4> {droppableId.slice(0, -1)} {bookings.length}</h4>
-        <div ref={provided.innerRef} className='bookings-wrapper'>
+        <div className='title'>
+          <h4>{droppableId.slice(0, -1)}</h4> <span>{bookings.length}</span>
+        </div>
+        <div ref={provided.innerRef} className='bookingsContainer'>
           { bookings.map((item, index) => {
             const { client: { first_name, email }, start, end, price, id } = item;
 
@@ -18,7 +20,7 @@ const BookingsWrapper = ({ droppableId, bookings, onCancelBooking }) => (
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    className='bookings'
+                    className='bookingItem'
                   >
                     <div>
                       <span>Name:</span> <p>{first_name}</p>
@@ -27,10 +29,16 @@ const BookingsWrapper = ({ droppableId, bookings, onCancelBooking }) => (
                       <span>Email:</span> <p>{email}</p>
                     </div>
                     <div>
-                      <span>Start date:</span> <p>{start.slice(0, 10)}</p>
+                      <span>Start Date:</span> <p>{start.slice(0, 10)}</p>
                     </div>
                     <div>
-                      <span>End date:</span> <p>{end.slice(0, 10)}</p>
+                      <span>Start Time:</span> <p>{start.slice(11, 19)}</p>
+                    </div>
+                    <div>
+                      <span>End Date:</span> <p>{end.slice(0, 10)}</p>
+                    </div>
+                    <div>
+                      <span>End Time:</span> <p>{end.slice(11, 19)}</p>
                     </div>
                     <div>
                       <span>Price:</span> <p>{price}</p>

@@ -14,9 +14,7 @@ const options = typeMethod => {
 
   return {
     method: typeMethod,
-    headers: {
-      'Authorization': `Basic ${btoa(`${username}:${password}`)}`
-    }
+    headers: {'Authorization': `Basic ${btoa(`${username}:${password}`)}` }
   };
 };
 
@@ -75,10 +73,7 @@ export const cancelBooking = (idBooking, bookingsList, idList) => {
 
       return dispatch({
         type: REORDER_BOOKINGS_DND,
-        payload: {
-          bookings,
-          idList: idListClone
-        }
+        payload: { bookings, idList: idListClone }
       });
     } catch(err) {
       return dispatch({ type: CANCEL_BOOKING_FAILED });

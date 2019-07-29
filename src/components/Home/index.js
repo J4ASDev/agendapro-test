@@ -14,16 +14,16 @@ const HomeLayout = ({
   onCancelBooking,
   onFilterDateByRange
 }) => (
-  <div className='wrapper'>
-    <div>
+  <div className='homeContainer'>
+    <section>
       <h1>AgendaPro Test - Bookings - Jonathan Araujo</h1>
       <form id='form-filter-date' onSubmit={onFilterDateByRange}>
         <label> From: <input type='date' name='range-from' /> </label>
         <label> To: <input type='date' name='range-to' /> </label>
         <button>Filter</button>
       </form>
-    </div>
-    <div className='wrapper-bookings'>
+    </section>
+    <section className='bookings'>
       <DragDropContext onDragEnd={onDragEnd}>
         <BookingsWrapper droppableId='reserved1' bookings={reserved} onCancelBooking={onCancelBooking} />
         <BookingsWrapper droppableId='confirmed2' bookings={confirmed} onCancelBooking={onCancelBooking} />
@@ -32,7 +32,7 @@ const HomeLayout = ({
         <BookingsWrapper droppableId='standby7' bookings={standby} onCancelBooking={onCancelBooking} />
         <BookingsWrapper droppableId='pending8' bookings={pending} onCancelBooking={onCancelBooking} />
       </DragDropContext>
-    </div>
+    </section>
   </div>
 );
 
